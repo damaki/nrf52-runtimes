@@ -6,7 +6,7 @@ nRF52 series:
 * nRF52833
 * nRF52840
 
-The following runtime profiles are supported for of the above:
+The following runtime profiles are supported for each of the above:
 * light
 * light-tasking
 * embedded
