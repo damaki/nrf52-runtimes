@@ -11,6 +11,27 @@ The following runtime profiles are supported for of the above:
 * light-tasking
 * embedded
 
+## Usage
+
+Using the light_tasking_nrf52840_runtime as an example, first edit your
+`alire.toml` file and add the following elements:
+ - Add `light_tasking_nrf52840_runtime` in the dependency list:
+   ```toml
+   [[depends-on]]
+   light_tasking_nrf52840_runtime = "*"
+   ```
+
+Then edit your project file to add the following elements:
+ - "with" the run-time project file:
+   ```ada
+   with "runtime_build.gpr";
+   ```
+ - specify the `Target` and `Runtime` attributes:
+   ```ada
+   for Target use runtime_build'Target;
+   for Runtime ("Ada") use runtime_build'Runtime ("Ada");
+   ```
+
 ## Resources Used
 
 The light-tasking and embedded runtime profiles use RTC peripheral to implement
@@ -57,9 +78,18 @@ The runtime is configurable through the following crate configuration variables:
       Sets the clock source for the low frequency clock (LFCLK).
       <ul>
         <li><tt>"Xtal"</tt> selects the external 32 kHz crystal as the LFCLK source (LFXO)</li>
-        <li><tt>"Rc"</tt> selects the internal LFRC oscillator as the LFCLK source</li>
+        <li><tt>"RC"</tt> selects the internal LFRC oscillator as the LFCLK source</li>
         <li><tt>"Synth"</tt> synthesises the LFCLK from the HFCLK</li>
       </ul>
     </td>
   </tr>
 </table>
+
+For example, to configure the light-tasking-nrf52840 runtime to use the
+internal LFRC oscillator as the LFCLK source and RTC0 for timing, add this to
+your `alire.toml`:
+```toml
+[configuration.values]
+light_tasking_nrf52840_runtime.LFCLK_Src = "RC"
+light_tasking_nrf52840_runtime.Time_Base = "RTC0"
+```
