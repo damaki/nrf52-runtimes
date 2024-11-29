@@ -21,6 +21,7 @@ Then edit your project file to add the following elements:
    ```ada
       for Target use runtime_build'Target;
       for Runtime ("Ada") use runtime_build'Runtime ("Ada");
+   ```
 """
 
 authors = ["AdaCore", "Daniel King"]
