@@ -49,7 +49,7 @@ jobs:
           version: 2.0.2
 
       - name: Restore Generated Runtimes
-        uses: actions/cacher/restore@v4
+        uses: actions/cache/restore@v4
         with:
           path: install
           key: runtimes-cache
