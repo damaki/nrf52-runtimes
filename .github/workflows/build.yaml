@@ -27,11 +27,10 @@ jobs:
           ./generate-all.sh
 
       - name: Cache Runtimes
-        uses: actions/cache@v4
+        uses: actions/cache/save@v4
         with:
           path: install
           key: runtimes-cache
-          save-always: true
 
   build:
     runs-on: ubuntu-latest
