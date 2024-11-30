@@ -1,0 +1,46 @@
+on:                    # Run the workflow for each of the following event:
+    push:                # - A branch is pushed or updated.
+      branches:
+        - main
+    pull_request:        # - A pull-request is openned or updated.
+    workflow_dispatch:   # - A manual run of the workflow is requested from the GitHub web interface.
+    release:
+      types: [created]   # - A release is created.
+
+jobs:
+
+  build:
+    strategy:
+      matrix:
+        # Also build on Windows since there have been some windows-specific
+        # problems in the past.
+        os: ["ubuntu-latest", "windows-latest"]
+        profile: ["light", "light-tasking", "embedded"]
+        target: ["nrf52832", "nrf52833", "nrf52840"]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - uses: alire-project/setup-alire@v3
+        with:
+          version: 2.0.2
+
+      - name: Generate Runtime
+        run: |
+          python build-rts.py --rts-src-descriptor=bb-runtimes/gnat_rts_sources/lib/gnat/rts-sources.json ${{ matrix.target }}
+          python crateify.py --runtime-dir=install/${{ matrix.profile }}-${{ matrix.target }} --profile=${{ matrix.profile }} --pretty-target=${{ matrix.target }}
+
+      # Use the validation build profile to enforce static analysis and coding style.
+      - name: Build Runtime
+        run: |
+          cd install/${{ matrix.profile }}-${{ matrix.target }}
+          alr build
+
