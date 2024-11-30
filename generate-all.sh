@@ -8,6 +8,6 @@ python build-rts.py --rts-src-descriptor=bb-runtimes/gnat_rts_sources/lib/gnat/r
 for target in nRF52832 nRF52833 nRF52840; do
     for profile in light light-tasking embedded; do
         echo "Crateifying ${profile}-${target,,}"
-        python crateify.py --runtime-dir=install/light-${target,,} --profile=${profile} --pretty-target=${target}
+        python crateify.py --runtime-dir=install/${profile}-${target,,} --profile=${profile} --pretty-target=${target}
     done
 done
