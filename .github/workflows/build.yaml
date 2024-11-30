@@ -59,6 +59,5 @@ jobs:
       - name: Build Runtime
         run: |
           cd install/${{ matrix.profile }}-${{ matrix.target }}
-          ls -al
           alr build
 
