@@ -90,6 +90,12 @@ def main():
         type=str,
         help="The pretty name of the target (e.g. nRF52840). Must not contain spaces",
     )
+    parser.add_argument(
+        "--version",
+        type=str,
+        default="14.0.0-dev",
+        help="Version string to put in the alire.toml file"
+    )
 
     args = parser.parse_args()
 
@@ -119,6 +125,7 @@ def main():
         "target": target,
         "pretty_target": pretty_target,
         "project_files_list": str(project_files),
+        "version": args.version,
     }
 
     gen_from_template(

@@ -1,6 +1,6 @@
 name = "$(profile_underscored)_$(target)_runtime"
 description = "$(profile) runtime for the $(pretty_target) SoC"
-version = "14.0.0-dev"
+version = "$(version)"
 
 long-description = """
 ## Usage
