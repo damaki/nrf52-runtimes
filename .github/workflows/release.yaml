@@ -33,8 +33,10 @@ jobs:
 
       - name: Archive Runtimes
         run: |
-          for dir in install/ ; do
-            tar -czvf install/$dir-${{ steps.get_version.outputs.version-without-v }}.tar.gz -C $dir .
+          cd install
+          for dir in install/*/ ; do
+            runtime=$(basename $dir)
+            tar -czvf install/$runtime-${{ steps.get_version.outputs.version-without-v }}.tar.gz -C install $runtime
           done
 
       # This uses gh release upload instead of actions/upload-release-asset
