@@ -53,10 +53,12 @@ jobs:
         with:
           path: install
           key: runtimes-cache
+          fail-on-cache-miss: true
 
       # Use the validation build profile to enforce static analysis and coding style.
       - name: Build Runtime
         run: |
           cd install/${{ matrix.profile }}-${{ matrix.target }}
+          ls -al
           alr build
 
