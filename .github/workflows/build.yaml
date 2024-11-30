@@ -1,11 +1,9 @@
-on:                    # Run the workflow for each of the following event:
-    push:                # - A branch is pushed or updated.
+on:
+    push:
       branches:
         - main
-    pull_request:        # - A pull-request is openned or updated.
-    workflow_dispatch:   # - A manual run of the workflow is requested from the GitHub web interface.
-    release:
-      types: [created]   # - A release is created.
+    pull_request:
+    workflow_dispatch:
 
 jobs:
 
@@ -43,4 +41,3 @@ jobs:
         run: |
           cd install/${{ matrix.profile }}-${{ matrix.target }}
           alr build
-
