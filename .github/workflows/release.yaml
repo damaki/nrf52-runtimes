@@ -45,7 +45,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd install
-          for f in *.tar.gz'; do
+          for f in *.tar.gz; do
             gh release upload ${{ steps.get_version.outputs.version }} $f
           done
 
