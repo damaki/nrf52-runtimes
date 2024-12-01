@@ -44,6 +44,8 @@ synthesized from the 16 MHz high-speed clock (HFCLK).
 
 ## Runtime Configuration
 
+### Crate Configuration
+
 The runtime is configurable through the following crate configuration variables:
 
 <table>
@@ -92,4 +94,36 @@ your `alire.toml`:
 [configuration.values]
 light_tasking_nrf52840_runtime.LFCLK_Src = "RC"
 light_tasking_nrf52840_runtime.Time_Base = "RTC0"
+```
+
+### GPR Scenario Variables
+
+The runtime project files expose `*_BUILD` and and `*_LIBRARY_TYPE` GPR
+scenario variables to configure the build mode (e.g. debug/production) and
+library type. These variables are prefixed with the name of the runtime in
+upper case. For example, for the light-tasking-nrf52832 runtime the variables
+are `LIGHT_TASKING_NRF52832_BUILD` and `LIGHT_TASKING_NRF52832_LIBRARY_TYPE`
+respectively.
+
+The `*_BUILD` variable can be set to the following values:
+* `Production` (default) builds the runtime with optimization enabled and with
+  all run-time checks suppressed.
+* `Debug` disables optimization and adds debug symbols.
+* `Assert` enables assertions.
+* `Gnatcov` disables optimization and enables flags to help coverage.
+
+The `*_LIBRARY_TYPE` variable can be set to either `static` (default) or
+`dynamic`, though only `static` libraries are supported on this target.
+
+You can usually leave these set to their defaults, but if you want to set them
+explicitly then you can set them either by passing them on the command line
+when building your project with Alire:
+```sh
+alr build -- -XLIGHT_TASKING_NRF52840_BUILD=Debug
+```
+
+or by setting them in your project's `alire.toml`:
+```toml
+[gpr-set-externals]
+LIGHT_TASKING_NRF52840_BUILD = "Debug"
 ```

@@ -1,11 +1,23 @@
 #!/bin/bash
 
+# This script generates all the runtime sources and turns them into Alire crates.
+#
+# It takes an optional --version argument which is set as the version field
+# in the generated alire.toml files.
+#
+# Note that any existing "install" folder should be deleted before calling
+# this script, otherwise the runtime generation will fail (bb-runtimes will
+# refuse to overwrite existing runtimes).
+#
+# Examples:
+# ./generate-all.sh
+# ./generate-all.sh --version 1.2.3
+
 set -e
 
 ARGUMENT_LIST=(
   "version"
 )
-
 
 # read arguments
 opts=$(getopt \
