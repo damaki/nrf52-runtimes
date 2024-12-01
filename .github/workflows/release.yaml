@@ -33,7 +33,6 @@ jobs:
 
       - name: Archive Runtimes
         run: |
-          cd install
           for dir in install/*/ ; do
             runtime=$(basename $dir)
             tar -czvf install/$runtime-${{ steps.get_version.outputs.version-without-v }}.tar.gz -C install $runtime
