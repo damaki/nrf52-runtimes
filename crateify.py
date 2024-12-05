@@ -127,7 +127,7 @@ def main():
         "--version",
         type=str,
         default="14.0.0-dev",
-        help="Version string to put in the alire.toml file"
+        help="Version string to put in the alire.toml file",
     )
 
     args = parser.parse_args()
@@ -165,14 +165,16 @@ def main():
         "version": args.version,
     }
 
+    templates_dir = pathlib.Path(__file__).parent / "templates"
+
     gen_from_template(
-        template_file=pathlib.Path(__file__).parent / "alire.toml.in",
+        template_file=templates_dir / "alire.toml.in",
         out_file=runtime_dir / "alire.toml",
         template_values=template_values,
     )
 
     gen_from_template(
-        template_file=pathlib.Path(__file__).parent / "nrf52_runtime_config.ads.in",
+        template_file=templates_dir / "nrf52_runtime_config.ads.in",
         out_file=runtime_dir / "gnat_user" / "nrf52_runtime_config.ads",
         template_values=template_values,
     )
