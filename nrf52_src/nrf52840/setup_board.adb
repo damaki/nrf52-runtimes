@@ -73,12 +73,6 @@ procedure Setup_Board is
    --  Rc selects the internal 32.768 kHz RC oscillator.
    --  Synth selects the LFCLK synthesized from the 16 MHz HFCLK.
 
-   Use_SWO_Trace : constant Boolean := True;
-   --  Set to True to enable the SWO trace pins.
-
-   Use_Reset_Pin : constant Boolean := True;
-   --  When True, P0.18 will be configured as the reset pin.
-
    LFRC_Used : constant Boolean := LFCLK_Source = Rc;
    --  When the LFRC oscillator is not used it is put into ultra-low power mode
 
@@ -174,7 +168,7 @@ procedure Setup_Board is
 begin
 
    --  Enable SWO trace pins
-   if Use_SWO_Trace then
+   if NRF52_Runtime_Config.Use_SWO_Trace then
       CLOCK_Periph.TRACECONFIG.TRACEMUX := Serial;
       P1_Periph.PIN_CNF (0) := PIN_CNF_Register'
          (DIR            => Output,
@@ -248,7 +242,7 @@ begin
       end if;
    end if;
 
-   if Use_Reset_Pin then
+   if NRF52_Runtime_Config.Use_Reset_Pin then
       --  Enable nRESET pin on P0.18
       if UICR_Periph.PSELRESET (0).CONNECT = Disconnected or
          UICR_Periph.PSELRESET (1).CONNECT = Disconnected

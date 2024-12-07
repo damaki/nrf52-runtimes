@@ -73,12 +73,6 @@ procedure Setup_Board is
    --  Rc selects the internal 32.768 kHz RC oscillator.
    --  Synth selects the LFCLK synthesized from the 16 MHz HFCLK.
 
-   Use_SWO_Trace : constant Boolean := True;
-   --  Set to True to enable the SWO trace pins.
-
-   Use_Reset_Pin : constant Boolean := True;
-   --  When True, P0.18 will be configured as the reset pin.
-
    --------------------------
    --  Errata Workarounds  --
    --------------------------
@@ -239,7 +233,7 @@ procedure Setup_Board is
 begin
 
    --  Enable SWO trace pins
-   if Use_SWO_Trace then
+   if NRF52_Runtime_Config.Use_SWO_Trace then
       CoreDebug_DEMCR := CoreDebug_DEMCR or DEMCR_TRCENA_Mask;
       CLOCK_Periph.TRACECONFIG.TRACEMUX := Serial;
       P0_Periph.PIN_CNF (18) := PIN_CNF_Register'

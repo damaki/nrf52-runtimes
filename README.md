@@ -85,6 +85,28 @@ The runtime is configurable through the following crate configuration variables:
       </ul>
     </td>
   </tr>
+  <tr>
+    <td><tt>Use_SWO_Trace</tt></td>
+    <td>
+      <tt>true</tt><br/>
+      <tt>false</tt><br/>
+    </td>
+    <td><tt>true</tt></td>
+    <td>
+      When true, the SWO pins are configured during startup to enable SWO trace.
+    </td>
+  </tr>
+  <tr>
+    <td><tt>Use_Reset_Pin</tt></td>
+    <td>
+      <tt>true</tt><br/>
+      <tt>false</tt><br/>
+    </td>
+    <td><tt>true</tt></td>
+    <td>
+      When true, P0.18 is configured as the reset pin.
+    </td>
+  </tr>
 </table>
 
 For example, to configure the light-tasking-nrf52840 runtime to use the
