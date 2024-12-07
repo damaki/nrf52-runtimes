@@ -221,31 +221,14 @@ package body System.BB.Board_Support is
       ----------------
 
       function Read_Clock return BB.Time.Time is
-         PRIMASK : Word;
          Res     : Timer_Interval;
 
       begin
-         --  As several registers and variables need to be read or modified, do
-         --  it atomically.
-
-         Asm ("mrs %0, PRIMASK",
-              Outputs => Word'Asm_Output ("=&r", PRIMASK),
-              Volatile => True);
-         Asm ("msr PRIMASK, %0",
-              Inputs  => Word'Asm_Input  ("r", 1),
-              Volatile => True);
-
          --  Double the value of the COUNTER register since the RTC runs at
          --  32.768 kHz, but our Timer_Interval values are in scaled up units
          --  (e.g. 65.536 kHz if RTC_Tick_Scaling_Factor is 2)
          Res := Timer_Interval (RTC_Periph.COUNTER.COUNTER);
          Res := Res * BBOPA.RTC_Tick_Scaling_Factor;
-
-         --  Restore interrupt mask
-
-         Asm ("msr PRIMASK, %0",
-              Inputs => Word'Asm_Input ("r", PRIMASK),
-              Volatile => True);
 
          return BB.Time.Time (Res);
       end Read_Clock;
