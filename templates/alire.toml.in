@@ -1,4 +1,4 @@
-name = "$(profile_underscored)_$(target)_runtime"
+name = "$(profile_underscored)_$(target)"
 description = "$(profile) runtime for the $(pretty_target) SoC"
 version = "$(version)"
 
@@ -6,10 +6,10 @@ long-description = """
 ## Usage
 
 First edit your `alire.toml` file and add the following elements:
- - Add `$(profile_underscored)_$(target)_runtime` in the dependency list:
+ - Add `$(profile_underscored)_$(target)` in the dependency list:
    ```toml
    [[depends-on]]
-   $(profile_underscored)_$(target)_runtime = "*"
+   $(profile_underscored)_$(target) = "*"
    ```
 
 Then edit your project file to add the following elements:

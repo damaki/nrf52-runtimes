@@ -13,12 +13,12 @@ The following runtime profiles are supported for each of the above:
 
 ## Usage
 
-Using the light_tasking_nrf52840_runtime as an example, first edit your
+Using the light_tasking_nrf52840 as an example, first edit your
 `alire.toml` file and add the following elements:
- - Add `light_tasking_nrf52840_runtime` in the dependency list:
+ - Add `light_tasking_nrf52840` in the dependency list:
    ```toml
    [[depends-on]]
-   light_tasking_nrf52840_runtime = "*"
+   light_tasking_nrf52840 = "*"
    ```
 
 Then edit your project file to add the following elements:
@@ -34,12 +34,12 @@ Then edit your project file to add the following elements:
 
 ## Resources Used
 
-The light-tasking and embedded runtime profiles use RTC peripheral to implement
-Ada semantics for time, i.e., delay statements and the package Ada.Real_Time.
-The RTC interrupt runs at the highest priority. The RTC runs from the low
-frequency clock (LFCLK) which runs at 32.768 kHz. The LFCLK source is
-configured via the crate configuration, and may be either the external 32 kHz
-crystal oscillator (LFXO), the internal 32 kHz oscillator (LFRC), or
+The light-tasking and embedded runtime profiles use an RTC peripheral to
+implement Ada semantics for time, i.e., delay statements and the package
+Ada.Real_Time. The RTC interrupt runs at the highest priority. The RTC runs
+from the low frequency clock (LFCLK) which runs at 32.768 kHz. The LFCLK source
+is configured via the crate configuration, and may be either the external
+32 kHz crystal oscillator (LFXO), the internal 32 kHz oscillator (LFRC), or
 synthesized from the 16 MHz high-speed clock (HFCLK).
 
 ## Runtime Configuration
@@ -92,8 +92,8 @@ internal LFRC oscillator as the LFCLK source and RTC0 for timing, add this to
 your `alire.toml`:
 ```toml
 [configuration.values]
-light_tasking_nrf52840_runtime.LFCLK_Src = "RC"
-light_tasking_nrf52840_runtime.Time_Base = "RTC0"
+light_tasking_nrf52840.LFCLK_Src = "RC"
+light_tasking_nrf52840.Time_Base = "RTC0"
 ```
 
 ### GPR Scenario Variables
