@@ -45,4 +45,4 @@ Use_SWO_Trace = { type = "Boolean", default = true }
 Use_Reset_Pin = { type = "Boolean", default = true }
 
 [[depends-on]]
-gnat_arm_elf = "^14"
+gnat_arm_elf = "^15"
