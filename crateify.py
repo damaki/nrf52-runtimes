@@ -14,11 +14,12 @@
 
 import argparse
 import pathlib
+import re
 from typing import Dict
 
 
 def patch_runtime_build_gpr(gpr_file: pathlib.Path, profile: str, target: str):
-    """Patch the runtime_build.gpr file to add some style switches"""
+    """Patch the runtime_build.gpr file to adjust various switches"""
 
     # Change "light-tasking" to "light_tasking"
     profile = profile.replace("-", "_")
@@ -35,8 +36,25 @@ def patch_runtime_build_gpr(gpr_file: pathlib.Path, profile: str, target: str):
         f'for Default_Switches ("Ada") use Target_Options.ALL_ADAFLAGS & ("-gnaty-d")',
     )
 
+    # Some Proof_Switches may mention source files that do not exist in this
+    # runtime profile. GNATprove 16 is strict and errors out in this case, so
+    # remove any mention of files that do not exist
+
+    def contains_non_existent_filename(line):
+        m = re.search(r'Proof_Switches.+"([-\w]+\.ad[sb])"', line)
+        if m is not None:
+            name = m.group(1)
+            if not (gpr_file.parent / "gnat" / name).exists():
+                return True
+        return False
+
+    lines = content.splitlines()
+    lines = [
+        line for line in lines if not contains_non_existent_filename(line)
+    ]
+
     with open(gpr_file, "w") as f:
-        f.write(content)
+        f.write('\n'.join(lines))
 
 
 def patch_ravenscar_build_gpr(gpr_file: pathlib.Path, profile: str, target: str):
