@@ -181,6 +181,7 @@ def main():
         "pretty_target": pretty_target,
         "project_files_list": str(project_files),
         "version": args.version,
+        "runtime_proj_prefix": "ravenscar" if has_libgnarl else "runtime",
     }
 
     templates_dir = pathlib.Path(__file__).parent / "templates"
