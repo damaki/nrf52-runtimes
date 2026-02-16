@@ -21,16 +21,28 @@ Using the light_tasking_nrf52840 as an example, first edit your
    light_tasking_nrf52840 = "*"
    ```
 
-Then edit your project file to add the following elements:
- - "with" the run-time project file:
-   ```ada
-   with "runtime_build.gpr";
-   ```
- - specify the `Target` and `Runtime` attributes:
-   ```ada
-   for Target use runtime_build'Target;
-   for Runtime ("Ada") use runtime_build'Runtime ("Ada");
-   ```
+Then edit your project file to add the following elements, depending on your
+chosen runtime profile:
+ - when using the **light** runtime profile:
+   - "with" the run-time project file:
+     ```ada
+     with "runtime_build.gpr";
+     ```
+   - specify the `Target` and `Runtime` attributes:
+     ```ada
+     for Target use runtime_build'Target;
+     for Runtime ("Ada") use runtime_build'Runtime ("Ada");
+     ```
+ - when using the **light-tasking** or **embedded** runtime profile:
+   - "with" the run-time project file:
+     ```ada
+     with "ravenscar_build.gpr";
+     ```
+   - specify the `Target` and `Runtime` attributes:
+     ```ada
+     for Target use ravenscar_build'Target;
+     for Runtime ("Ada") use ravenscar_build'Runtime ("Ada");
+     ```
 
 ## Resources Used
 
