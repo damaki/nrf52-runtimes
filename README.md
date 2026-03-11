@@ -1,5 +1,8 @@
 # nRF52 Runtimes
 
+> [!IMPORTANT]
+> nrf52-runtimes has moved to [community-bb-runtimes](https://github.com/damaki/community-bb-runtimes).
+
 This repository generates Ada/SPARK runtimes for the following SoCs in the
 nRF52 series:
 * nRF52832
